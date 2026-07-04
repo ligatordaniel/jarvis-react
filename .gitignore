@@ -1,0 +1,35 @@
+node_modules/
+dist/
+.env
+.idea/
+.vscode/
+*.log
+
+# Secrets / local env
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# Dependencies / build outputs
+node_modules/
+dist/
+build/
+target/
+.gradle/
+
+# Local runtime data
+storage/
+postgres-data/
+downloads/
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs / editor / OS
+*.log
+.DS_Store
+.idea/
+.vscode/
+*.iml
