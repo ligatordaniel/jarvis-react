@@ -9,7 +9,7 @@ services:
       SERVER_PORT: "8000"
       SHAULA_STATE_PATH: /data/shaula_state.json
       SHAULA_KAFRA_UPSTREAM: http://kafra-app:3000/api
-      SHAULA_OCARINA_UPSTREAM: http://ocarina-sprintboot:8081
+      SHAULA_OCARINA_UPSTREAM: http://ocarina-python:8081
       SHAULA_PROXY_TIMEOUT_SECONDS: "3600"
     volumes:
       - shaula-data:/data
@@ -41,16 +41,16 @@ services:
     volumes:
       - kafka-data:/var/lib/kafka/data
 
-  ocarina-sprintboot:
-    image: ocarina-sprintboot
+  ocarina-python:
+    image: ocarina-python
     build:
-      context: ../ocarina-sprintboot
-    container_name: ocarina-sprintboot
+      context: ../ocarina-python
+    container_name: ocarina-python
     depends_on:
       - kafka
     environment:
       SERVER_PORT: "8081"
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       OCARINA_DOWNLOADS_DIR: /downloads
       OCARINA_YTDLP_COOKIES_FILE: /cookies/youtube.txt
       OCARINA_CORS_ALLOWED_ORIGINS: http://localhost:5173,http://localhost:8080
@@ -58,6 +58,9 @@ services:
     volumes:
       - ocarina-downloads:/downloads
       - ./cookies:/cookies:ro
+    networks:
+      - default
+      - kafra_data_net
 
   bee-go:
     image: bee-go
@@ -83,7 +86,7 @@ services:
     container_name: jarvis-vite
     depends_on:
       - shaula-sprintboot
-      - ocarina-sprintboot
+      - ocarina-python
       - bee-go
     ports:
       - "5173:80"
