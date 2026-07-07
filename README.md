@@ -1,8 +1,8 @@
-# jarvis-vite
+# jarvis-react
 
-Frontend Vite/React para conectar varios backends.
+Frontend React para conectar varios backends.
 
-Primera sección creada: **Ocarina · YouTube**, conectada a `ocarina-sprintboot`.
+Primera sección creada: **Ocarina · YouTube**, conectada a `ocarina-fastapi`.
 
 Segunda sección: **Kafra · Archivos**, conectada a `kafra-elysia` por proxy interno `/kafra-api` para login, subida, listado, descarga y borrado de archivos.
 
@@ -34,7 +34,7 @@ Abre:
 
 ## Cookies YouTube opcionales
 
-Si YouTube responde “Sign in to confirm you’re not a bot”, exporta cookies en formato Netscape como:
+Si YouTube responde "Sign in to confirm you're not a bot", exporta cookies en formato Netscape como:
 
 `/root/jarvis-vite/cookies/youtube.txt`
 
