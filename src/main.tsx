@@ -326,6 +326,7 @@ function ShaulaSettings({ api, username, onUnauthorized }: { api: string; userna
 function OcarinaSection({ api, onUnauthorized }: { api: string; onUnauthorized: () => void }) {
   const [url, setUrl] = useState('');
   const [format, setFormat] = useState<Format>('MP4');
+  const [saveToKafra, setSaveToKafra] = useState(false);
   const [jobs, setJobs] = useState<DownloadJob[]>([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
@@ -353,7 +354,7 @@ function OcarinaSection({ api, onUnauthorized }: { api: string; onUnauthorized: 
       const response = await apiFetch('/api/downloads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url, format }),
+        body: JSON.stringify({ url, format, save_to_kafra: saveToKafra }),
       });
       if (!response.ok) {
         const data = await response.json().catch(() => ({}));
@@ -397,6 +398,11 @@ function OcarinaSection({ api, onUnauthorized }: { api: string; onUnauthorized: 
             <option value="MP4">MP4 video</option>
             <option value="MP3">MP3 audio</option>
           </select>
+        </label>
+
+        <label className="checkbox-label">
+          <input type="checkbox" checked={saveToKafra} onChange={(event) => setSaveToKafra(event.target.checked)} />
+          Guardar en Kafra Drive
         </label>
 
         <button disabled={loading}>{loading ? 'Enviando...' : 'Descargar'}</button>
